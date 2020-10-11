@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">BTCUSDOrderBook</string>
+
+    <string name="order_book">Order Book</string>
+    <string name="ticker">Ticker</string>
+    <string name="bids">Bids</string>
+    <string name="asks">Asks</string>
+    <string name="generic_error">There was an error!</string>
+    <string name="try_again">Try again</string>
+    <string name="price">$ %.2f</string>
+    <string name="volume">Vol %.5f</string>
+    <string name="high">High: $%.2f</string>
+    <string name="low">Low: $%.2f</string>
 </resources>
