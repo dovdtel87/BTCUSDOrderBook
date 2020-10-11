@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
     compileSdkVersion 29
@@ -17,21 +20,101 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "${project.API_URL_TEST}"
+        }
+
         release {
+            buildConfigField "String", "API_URL", "${project.API_URL_PRODUCTION}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    testOptions {
+        unitTests.setIncludeAndroidResources(true)
+        junitPlatform {
+            filters {
+                includeEngines("spek2")
+            }
+        }
+
+        unitTests.all {
+            testLogging.events = ["passed", "skipped", "failed"]
         }
     }
 }
 
 dependencies {
+    def rxAndroidVersion = "2.1.1"
+    def rxJavaVersion = "2.2.11"
+    def okhttp = "4.7.2"
+    def dagger = "2.28"
+    def daggerHilt = "2.28-alpha"
+    def retrofit = "2.9.0"
+    def navigation = "2.3.0"
+    def lifecycle = "2.2.0"
+    def fragment = "1.2.5"
+    def autodispose = "1.4.0"
+    def scarlet = "0.1.9"
+    def spek = "2.0.9"
+    def mockk = "1.9.3"
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.fragment:fragment-ktx:$fragment"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
+
+    implementation "com.tinder.scarlet:scarlet:$scarlet"
+    implementation "com.tinder.scarlet:websocket-okhttp:$scarlet"
+    implementation "com.tinder.scarlet:lifecycle-android:$scarlet"
+    implementation "com.tinder.scarlet:message-adapter-gson:$scarlet"
+    implementation "com.tinder.scarlet:stream-adapter-rxjava2:$scarlet"
+
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:hilt-android:$daggerHilt"
+    kapt "com.google.dagger:hilt-android-compiler:$daggerHilt"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+
+    implementation"com.uber.autodispose:autodispose:$autodispose"
+    implementation "com.uber.autodispose:autodispose-android:$autodispose"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents:$autodispose"
+
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek"
+    testImplementation "io.mockk:mockk:$mockk"
+    testImplementation "io.mockk:mockk-android:$mockk"
 }
