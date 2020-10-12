@@ -17,7 +17,7 @@ As DI framework I used Dagger Hilt, its configuration is done in the subfolder D
   
 The management of the response is done with `RxJava`, using `Scarlet` library from tinder to handle the communication with the websockets
   
-I decided to to transform the data provided by the sockets to the domain model creating the modelts `FormattedOrderBook`and `Ticker` and doing the transformation with two  `Mapper`  
+I decided to to transform the data provided by the sockets to the domain model creating the models `FormattedOrderBook`and `Ticker` and doing the transformation with two  `Mapper`  
   
 The project use the `UseCases` pattern in order to help identify the different use cases the app could have. In this example there are five use cases
   
@@ -26,7 +26,7 @@ In order to display the fragment and support navigation I decided to use the And
 For `UnitTest` I use the spec framework, as I think it improves the readability of the different use cases and as well the scalability for more complex input data structures.  
 The  `UnitTest` test the 3 different layers of the feature  
   
-I provide a `UITest` using espresso to test the displayed of the list in the fragment. This is done mocking the response of the view states. Please use an emulator with API 28 to run it.  
+I provide a `UITest` using espresso to test the displayed of the order book in the fragment. This is done mocking the response of the view states. Please use an emulator with API 28 to run it.  
 
 Please note, I didn't add end to end test, that should be added to test the integration of all the layers of the proyect.
   
