@@ -17,7 +17,7 @@ As DI framework I used Dagger Hilt, its configuration is done in the subfolder D
   
 The management of the response is done with `RxJava`, using `Scarlet` library from tinder to handle the communication with the websockets
   
-I decided to to transform the data provided to the sockets to the domain model creating the modelts `FormattedOrderBook`and `Ticker` and doing the transformation with two  `Mapper`  
+I decided to to transform the data provided by the sockets to the domain model creating the modelts `FormattedOrderBook`and `Ticker` and doing the transformation with two  `Mapper`  
   
 The project use the `UseCases` pattern in order to help identify the different use cases the app could have. In this example there are five use cases
   
