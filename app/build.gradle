@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion 29
@@ -59,62 +60,68 @@ android {
 }
 
 dependencies {
-    def rxAndroidVersion = "2.1.1"
-    def rxJavaVersion = "2.2.11"
-    def okhttp = "4.7.2"
+    def material = "1.2.1"
+    def retrofit = "2.9.0"
     def dagger = "2.28"
     def daggerHilt = "2.28-alpha"
-    def retrofit = "2.9.0"
+    def okhttp = "4.7.2"
+    def fragment = "1.2.5"
     def navigation = "2.3.0"
     def lifecycle = "2.2.0"
-    def fragment = "1.2.5"
-    def autodispose = "1.4.0"
-    def scarlet = "0.1.9"
     def spek = "2.0.9"
     def mockk = "1.9.3"
+    def archCoreTesting = "2.1.0"
+    def glide = "4.11.0"
+    def scarlet = "0.1.9"
+    def autodispose = "1.4.0"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
-
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "androidx.fragment:fragment-ktx:$fragment"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
+    implementation 'com.squareup.moshi:moshi:1.9.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.google.android.material:material:$material"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.9.3"
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:hilt-android:$daggerHilt"
+    kapt "com.google.dagger:hilt-android-compiler:$daggerHilt"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.github.bumptech.glide:glide:$glide"
 
     implementation "com.tinder.scarlet:scarlet:$scarlet"
     implementation "com.tinder.scarlet:websocket-okhttp:$scarlet"
     implementation "com.tinder.scarlet:lifecycle-android:$scarlet"
     implementation "com.tinder.scarlet:message-adapter-gson:$scarlet"
     implementation "com.tinder.scarlet:stream-adapter-rxjava2:$scarlet"
-
-    implementation "com.google.dagger:dagger:$dagger"
-    kapt "com.google.dagger:dagger-compiler:$dagger"
-    implementation "com.google.dagger:hilt-android:$daggerHilt"
-    kapt "com.google.dagger:hilt-android-compiler:$daggerHilt"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
-
     implementation"com.uber.autodispose:autodispose:$autodispose"
     implementation "com.uber.autodispose:autodispose-android:$autodispose"
     implementation "com.uber.autodispose:autodispose-android-archcomponents:$autodispose"
 
+    testImplementation 'junit:junit:4.13'
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek"
     testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek"
     testImplementation "io.mockk:mockk:$mockk"
     testImplementation "io.mockk:mockk-android:$mockk"
+    testImplementation "com.google.dagger:hilt-android-testing:$daggerHilt"
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    kaptTest "com.google.dagger:hilt-android-compiler:$daggerHilt"
+
+    androidTestImplementation "androidx.arch.core:core-testing:$archCoreTesting"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment"
+    androidTestImplementation "io.mockk:mockk-android:$mockk"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$daggerHilt"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$daggerHilt"
+
 }
